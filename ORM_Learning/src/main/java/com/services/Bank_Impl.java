@@ -8,25 +8,24 @@ import com.utility.EM_Utility;
 public class Bank_Impl implements Bank_Interface{
 
 	@Override
-	public boolean createAccount(Account account) {
-		boolean isCreated = false;
-		
+	public void createAccount(Account account) {
 		EntityManager em = EM_Utility.provideEntityManager();
-		Account acc = em.find(Account.class, account.getAccountNumber());
-		if(acc == null) {
+		try {
+			
 			em.getTransaction().begin();
 			em.persist(account);
 			em.getTransaction().commit();
-			isCreated = true;
-		}else {
-			System.out.println("Account Number already exist with us.");
+			System.out.println("Account is created");
+			
+		}catch (Exception e) {
+			System.out.println("Similar details already present.");
+		}finally {
+			em.close();
 		}
-		em.close();
-		return isCreated;
 	}
 
 	@Override
-	public boolean findAccount(Long accountNumber) {
+	public boolean findAccount(Integer accountNumber) {
 		boolean isFound = false;
 		
 		EntityManager em = EM_Utility.provideEntityManager();
@@ -57,7 +56,7 @@ public class Bank_Impl implements Bank_Interface{
 	}
 
 	@Override
-	public boolean deleteAccount(Long accountNumber) {
+	public boolean deleteAccount(Integer accountNumber) {
 		boolean isDeleted = false;
 		
 		EntityManager em = EM_Utility.provideEntityManager();
@@ -72,6 +71,21 @@ public class Bank_Impl implements Bank_Interface{
 			System.out.println("Account not found");
 		}
 		return isDeleted;
+	}
+
+
+
+	@Override
+	public Account fetchDetails(Integer accountNumber) {
+		EntityManager em = EM_Utility.provideEntityManager();
+		Account acc = em.find(Account.class, accountNumber);
+		em.close();
+		if(acc != null) {
+			return acc;
+		}else {
+			System.out.println("Account not found");
+			return null;
+		}
 	}
 
 }
