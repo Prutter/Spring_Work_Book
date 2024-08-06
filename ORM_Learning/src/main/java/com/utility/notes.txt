@@ -1,0 +1,6 @@
+This bank account management system is just for practice
+and
+in next session, I will try to execute the same with updated code and functions.
+
+I will have both codes with me as I can refer the error and mistakes 
+in different stages.
