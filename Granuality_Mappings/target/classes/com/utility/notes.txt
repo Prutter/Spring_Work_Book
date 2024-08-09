@@ -1,0 +1,10 @@
+I have developed several use cases
+just to in act the situation of using
+application and services from many devices.
+
+Example :
+
+	creating account from one device,
+	deposit from another device,
+	withdraw from another device,
+	etc 
